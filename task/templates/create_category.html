@@ -13,14 +13,16 @@
       <form method="POST">
         {% csrf_token %}
 
-          <div class="form-row">
-            <div class="col form-group">
-              <label>Title</label>
+          <div class="">
+            <div class="">
+              <label class="mt-2 text-gray-500 font-bold text-md block">Title</label>
                 {{ form.title }}
             </div> 
 
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block"> Create </button>
+            <div class="flex justify-center mt-2">
+              <button type="submit" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                {{btn_name}}
+              </button>
             </div>
           </div> 
 

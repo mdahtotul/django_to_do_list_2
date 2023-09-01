@@ -19,7 +19,11 @@ def create_category(request):
   else:
     form = CreateTaskCategoryForm()
 
-  return render(request, 'create_category.html', {"form": form, 'sec_title': 'Create Category'})
+  context = {
+    "form": form, 'sec_title': 'Create Category', 'btn_name': 'Create',
+  }
+
+  return render(request, 'create_category.html', context)
 
 
 def edit_category(request, pk):
@@ -34,7 +38,11 @@ def edit_category(request, pk):
   else:
     form = CreateTaskCategoryForm(instance=category)
 
-  return render(request, 'create_category.html', {"form": form, 'sec_title': 'Edit Category'})
+  context = {
+    "form": form, 'sec_title': 'Edit Category', 'btn_name': 'Update',
+  }
+
+  return render(request, 'create_category.html', context)
 
 
 def delete_category(request, pk):

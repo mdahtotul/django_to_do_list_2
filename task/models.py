@@ -6,6 +6,9 @@ from task.constants import TASK_PRIORITY, TASK_STATUS, TASK_TO_DO
 class Category(models.Model):
   title = models.CharField(max_length=255)
 
+  def __str__(self) -> str:
+    return self.title
+
 
 class Task(models.Model):
   title = models.CharField(max_length=255)
@@ -17,3 +20,6 @@ class Task(models.Model):
   priority = models.IntegerField(choices=TASK_PRIORITY, default=0)
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
+
+  def __str__(self):
+    return self.title
