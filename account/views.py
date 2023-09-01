@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
 
+from account.forms import ProfileEditForm, RegisterForm
 
-from account.forms import RegisterForm
 
 def user_register(request):
+    if request.user.is_authenticated:
+        return redirect('all_tasks')
+    
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -26,9 +30,12 @@ def user_register(request):
     }
     return render(request, 'register.html', context)
 
+
 def user_login(request):
+    if request.user.is_authenticated:
+        print('authenticated')
+    
     if request.method == 'POST':
-        print(request.POST)
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
@@ -39,6 +46,23 @@ def user_login(request):
             messages.info(request, 'Invalid username or password.')
 
     return render(request, 'login.html')
+
+
+@login_required
+def edit_user_profile(request):
+    if request.method == 'POST':
+        user_form = ProfileEditForm(request.POST, instance = request.user)
+        if user_form.is_valid():
+            user_form.save()
+            messages.success(request, 'Profile updated.')
+        else:
+            print(user_form.errors)
+
+    else:
+        user_form = ProfileEditForm(instance = request.user)
+
+    return render(request, 'profile.html', {'form': user_form})
+
 
 def user_logout(request):
     logout(request)
