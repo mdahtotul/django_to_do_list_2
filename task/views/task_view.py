@@ -11,7 +11,8 @@ def list_task(request):
   queryset = Task.objects.prefetch_related('category','assigned_to').all() # using eager load to avoid n+1 queries
 
   filter = TaskFilter(request.GET, queryset)
-  queryset = filter.qs
+  order_by = request.GET.get('o', '-priority')
+  queryset = filter.qs.order_by(order_by)
 
   context = {
     "sec_title": "Tasks",

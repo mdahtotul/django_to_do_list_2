@@ -54,5 +54,6 @@ class TaskFilter(FilterSet):
   class Meta:
     model = Task
     fields = ['category', 'status', 'priority', 'start_date', 'end_date']
+    order_by = ['-priority', 'due_date']
     
     
