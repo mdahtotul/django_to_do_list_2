@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from task.constants import TASK_COMPLETED
 
 from task.forms import CreateTaskForm
 from task.models import Task
@@ -46,6 +47,13 @@ def edit_task(request, pk):
     "form": form, 'sec_title': 'Edit Task', 'btn_name': 'Update'
   }
   return render(request, 'create_task.html', context)
+
+
+def complete_task(request, pk):
+  task = Task.objects.get(pk=pk)
+  task.status = TASK_COMPLETED
+  task.save()
+  return redirect('tasks')
 
 
 def delete_task(request, pk):

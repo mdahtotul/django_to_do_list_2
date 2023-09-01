@@ -97,9 +97,19 @@
               
 
               <td class="px-6 py-4 text-center">
+                {% if item.status != 'completed' %}
+                <a 
+                  href="{% url 'done_task' pk=item.pk %}" 
+                  class="inline-block font-medium text-lg text-center text-blue-600 hover:bg-green-200 hover:text-green-700 ml-1 w-7 h-7 rounded-full"
+                >
+                  <span title="Complete" class="text-lg">
+                    <i class="fa-regular fa-circle-check"></i>
+                  </span>
+                </a>
+                {% endif %}
                 <a 
                   href="{% url 'edit_task' pk=item.pk %}" 
-                  class="inline-block font-medium text-lg text-center text-blue-600 hover:bg-sky-100 hover:text-sky-600 w-7 h-7 rounded-full"
+                  class="inline-block font-medium text-lg text-center text-blue-600 hover:bg-yellow-100 hover:text-yellow-600 w-7 h-7 rounded-full"
                 >
                   <span title="Edit" class="text-lg">
                     <i class="fa-regular fa-pen-to-square"></i>
