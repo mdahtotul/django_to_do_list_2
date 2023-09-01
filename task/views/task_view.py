@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from task.constants import TASK_COMPLETED
+from task.filters import TaskFilter
 
 from task.forms import CreateTaskForm
 from task.models import Task
@@ -8,9 +9,14 @@ from task.models import Task
 
 def list_task(request):
   queryset = Task.objects.prefetch_related('category','assigned_to').all() # using eager load to avoid n+1 queries
+
+  filter = TaskFilter(request.GET, queryset)
+  queryset = filter.qs
+
   context = {
     "sec_title": "Tasks",
     "tasks": queryset,
+    "task_filter": filter
   }
 
   return render(request, 'list_task.html', context)

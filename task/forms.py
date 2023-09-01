@@ -1,4 +1,5 @@
 from django import forms
+from django_filters.widgets import RangeWidget
 
 from task.models import Category, Task
 
@@ -15,9 +16,6 @@ class CreateTaskCategoryForm(forms.ModelForm):
             ),
         }
 
-
-from django import forms
-from .models import Task
 
 class CreateTaskForm(forms.ModelForm):
     class Meta:
@@ -62,3 +60,4 @@ class CreateTaskForm(forms.ModelForm):
                 }
             ),
         }
+
