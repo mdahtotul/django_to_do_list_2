@@ -27,6 +27,7 @@ def user_register(request):
         form = RegisterForm()
     context = {
         'form': form,
+        'sec_title': 'Register'
     }
     return render(request, 'register.html', context)
 
@@ -45,7 +46,7 @@ def user_login(request):
             print('error')
             messages.info(request, 'Invalid username or password.')
 
-    return render(request, 'login.html')
+    return render(request, 'login.html', {'sec_title': "Login"})
 
 
 @login_required
@@ -61,7 +62,7 @@ def edit_user_profile(request):
     else:
         user_form = ProfileEditForm(instance = request.user)
 
-    return render(request, 'profile.html', {'form': user_form})
+    return render(request, 'profile.html', {'form': user_form, 'sec_title': 'Profile'})
 
 
 def user_logout(request):

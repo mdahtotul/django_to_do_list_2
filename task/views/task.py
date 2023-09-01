@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-from task.forms import CreateTaskForm
+from task.forms import CreateTaskCategoryForm, CreateTaskForm
+from task.models import Category
 
-# Create your views here.
+
+
 def get_all_tasks():
   pass 
 
@@ -13,7 +15,7 @@ def create_task(request):
 
   else:
     form = CreateTaskForm()
-    return render(request, 'create_task.html', {form: form})
+    return render(request, 'create_task.html', {"form": form, 'sec_title': 'Create Task'})
   
 
 def edit_task(request, pk):

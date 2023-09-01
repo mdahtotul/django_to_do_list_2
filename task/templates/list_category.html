@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %} Categories {% endblock title %}
+
+{% block section_title %} {% include 'includes/sec_title.html' with section_title=sec_title %} {% endblock %}
+
+{% block content %}
+<section>
+
+{% if categories %}
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-2">
+      <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-200">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-center">
+                ID
+            </th>
+            <th scope="col" class="px-6 py-3">
+                Title
+            </th>
+            <th scope="col" class="px-6 py-3 text-center">
+                Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in categories %}
+          <tr class="{% cycle 'bg-white' 'bg-gray-100' %} border-b">
+              <td class="text-center">
+                <a 
+                  href="#"
+                  class="inline-block font-medium text-lg text-blue-600 hover:bg-green-100 hover:text-green-600 w-7 h-7 rounded-full"
+                >
+                  {{item.pk}}
+                </a>
+                </td>
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                  {{item.title}}
+              </th>
+              
+
+              <td class="px-6 py-4 text-center">
+                <a 
+                  href="{% url 'edit_category' pk=item.pk %}" 
+                  class="inline-block font-medium text-lg text-center text-blue-600 hover:bg-sky-100 hover:text-sky-600 w-7 h-7 rounded-full"
+                >
+                  <span title="Edit" class="text-lg">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  </span>
+                </a>
+                <a 
+                  href="{% url 'delete_category' pk=item.pk %}" 
+                  class="inline-block font-medium text-lg text-center text-blue-600 hover:bg-red-100 hover:text-red-600 ml-1 w-7 h-7 rounded-full"
+                >
+                  <span title="Delete" class="text-lg">
+                    <i class="fa-regular fa-trash-can"></i>
+                  </span>
+                </a>
+              </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="flex justify-center items-center">
+      <h1 class="text-2xl text-gray-500">No Tasks Found</h1>
+    </div>
+  {% endif %}
+
+  <div class="mt-5 flex items-center justify-between me-2">
+    <div>
+      <a 
+        href="{% url 'create_category' %}" 
+        class="inline-block font-medium text-lg text-center text-blue-600 bg-green-100 hover:bg-green-700 hover:text-green-100 w-7 h-7 rounded-full flex justify-center items-center shadow-lg shadow-blue-500/50 "
+      >
+        <span title="Create category" class="text-2xl">
+          <i class="fa-regular fa-plus"></i>
+        </span>
+      </a>
+    </div>
+
+  </div>
+</section>
+{% endblock content %}
