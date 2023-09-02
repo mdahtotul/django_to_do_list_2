@@ -11,7 +11,6 @@ def user_register(request):
         return redirect('tasks')
     else :
         if request.method == 'POST':
-            print(request.POST)
             form = RegisterForm(request.POST)
             if form.is_valid():
                 new_user = form.save()
@@ -21,7 +20,7 @@ def user_register(request):
                 login(request, new_user)
                 return redirect('tasks')
             else :
-                print(form.errors)
+                messages.error(request, 'Something went wrong.')
         else:
             form = RegisterForm()
         context = {
@@ -43,7 +42,7 @@ def user_login(request):
                 login(request, user)
                 return redirect('tasks')
             else:
-                messages.info(request, 'Invalid username or password.')
+                messages.error(request, 'Invalid username or password.')
 
         return render(request, 'login.html', {'sec_title': "Login"})
 
@@ -56,7 +55,8 @@ def edit_user_profile(request):
             user_form.save()
             messages.success(request, 'Profile updated.')
         else:
-            print(user_form.errors)
+            messages.error(request, 'Something went wrong.')
+
 
     else:
         user_form = ProfileEditForm(instance = request.user)

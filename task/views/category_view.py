@@ -40,8 +40,7 @@ def edit_category(request, pk):
       messages.success(request,'Updated category success')
       return redirect('categories')
     else:
-      messages.error(request,'Update category error')
-      print(form.errors)
+      messages.error(request,'Something went wrong')
   else:
     form = CreateTaskCategoryForm(instance=category)
 

@@ -28,7 +28,6 @@ def list_task(request):
 @login_required
 def create_task(request):
   if request.method == 'POST':
-    print(request.POST)
     form = CreateTaskForm(request.POST)
     if form.is_valid():
       form.save()
