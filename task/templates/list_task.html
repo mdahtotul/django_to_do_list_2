@@ -220,24 +220,5 @@
     </div>
 
   </div>
-  <script>
-    const dueDateElements = document.querySelectorAll('.due-date');
-
-    dueDateElements.forEach(element => {
-      let date = element.textContent
-      startDate = date.split('|')[0].trim();
-      endDate = date.split('|')[1].trim();
-
-      console.log(new Date(startDate))
-      console.log(new Date(endDate))
-      
-    });
-
-    const delay = 500;
-
-    // setTimeout(()=> {
-    //   alert("Notifications: " + delay)
-    // },delay)
-  </script>
 </section>
 {% endblock content %}
