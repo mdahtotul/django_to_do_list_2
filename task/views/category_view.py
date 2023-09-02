@@ -18,6 +18,7 @@ def create_category(request):
     if form.is_valid():
       form.save()
       messages.success(request,'Created category success')
+      return redirect('categories')
     else:
       messages.error(request,'Created category error')
   else:
