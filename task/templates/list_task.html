@@ -34,10 +34,6 @@
           {{task_filter.form.end_date}}  
         </div>
 
-        <!-- <div class="flex flex-col mb-0 w-full md:mb-4">
-          <label for="" class="mt-2 text-gray-500 font-bold text-md">End Date</label>
-          {{task_filter.form}}  
-        </div> -->
       </div>
 
       <div>
@@ -102,7 +98,7 @@
                 Priority
             </th>
             <th scope="col" class="px-6 py-3">
-                Due Date
+                Date
             </th>
             <th scope="col" class="px-6 py-3 text-center">
                 Actions
@@ -163,8 +159,12 @@
               </td>
 
               <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                  {{item.due_date}}
+                  Submit: <span>{{item.due_date}}</span>
+                  <br>
+                  Reminder: <span>{{item.reminder}}</span> 
               </td>
+
+              <td class="due-date hidden">{{item.due_date}}|{{item.reminder}}</td>
               
 
               <td class="px-6 py-4 text-center">
@@ -220,5 +220,24 @@
     </div>
 
   </div>
+  <script>
+    const dueDateElements = document.querySelectorAll('.due-date');
+
+    dueDateElements.forEach(element => {
+      let date = element.textContent
+      startDate = date.split('|')[0].trim();
+      endDate = date.split('|')[1].trim();
+
+      console.log(new Date(startDate))
+      console.log(new Date(endDate))
+      
+    });
+
+    const delay = 500;
+
+    // setTimeout(()=> {
+    //   alert("Notifications: " + delay)
+    // },delay)
+  </script>
 </section>
 {% endblock content %}

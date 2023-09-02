@@ -20,7 +20,7 @@ class CreateTaskCategoryForm(forms.ModelForm):
 class CreateTaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ["title", "details", 'category', 'assigned_to', 'status', 'due_date', 'priority']
+        fields = ["title", "details", 'category', 'assigned_to', 'status', 'due_date', 'reminder', 'priority']
         widgets = {
             "title": forms.TextInput(
                 attrs={
@@ -52,6 +52,12 @@ class CreateTaskForm(forms.ModelForm):
                 attrs={
                     "class": "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-2.5",
                     "type": "date",  # Use the date input type
+                }
+            ),
+            "reminder": forms.DateTimeInput(
+                attrs={
+                    "class": "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-2.5",
+                    "type": "datetime-local",  # Use the date input type
                 }
             ),
             "priority": forms.Select(  # Use Select widget for the priority field

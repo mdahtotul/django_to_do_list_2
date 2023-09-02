@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from task.constants import TASK_COMPLETED
 from task.filters import TaskFilter
@@ -31,7 +32,10 @@ def create_task(request):
     form = CreateTaskForm(request.POST)
     if form.is_valid():
       form.save()
+      messages.success(request,'Created task success')
       return redirect('tasks')
+    else:
+      messages.error(request,'Created task failed')
   else:
     form = CreateTaskForm()
 
@@ -48,7 +52,10 @@ def edit_task(request, pk):
     form = CreateTaskForm(request.POST, instance=task)
     if form.is_valid():
       form.save()
+      messages.success(request,'Updated task success')
       return redirect('tasks')
+    else:
+      messages.error(request,'Updated task failed')
   else:
     form = CreateTaskForm(instance=task)
 

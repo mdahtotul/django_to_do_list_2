@@ -9,7 +9,7 @@
 <section class="section-content padding-y">
 
 	<div class="card mx-auto" style="max-width:520px; margin-top:40px;">
-    {% include 'includes/alert_success.html' %}
+    {% include 'includes/alert.html' %}
       <article class="card-body">
       <form action="{% url 'profile' %}" method="POST">
         {% csrf_token %}

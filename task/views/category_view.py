@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from task.forms import CreateTaskCategoryForm
@@ -16,9 +17,9 @@ def create_category(request):
     form = CreateTaskCategoryForm(request.POST)
     if form.is_valid():
       form.save()
-      return redirect('create_category')
+      messages.success(request,'Created category success')
     else:
-      print(form.errors)
+      messages.error(request,'Created category error')
   else:
     form = CreateTaskCategoryForm()
 
@@ -36,8 +37,10 @@ def edit_category(request, pk):
     form = CreateTaskCategoryForm(request.POST, instance=category)
     if form.is_valid():
       form.save()
+      messages.success(request,'Updated category success')
       return redirect('categories')
     else:
+      messages.error(request,'Update category error')
       print(form.errors)
   else:
     form = CreateTaskCategoryForm(instance=category)

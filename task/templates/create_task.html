@@ -8,7 +8,7 @@
 
 <section class="section-content padding-y">
 	<div class="card mx-auto" style="max-width:520px; margin-top:40px;">
-    {% include 'includes/alert_success.html' %}
+    {% include 'includes/alert.html' %}
       <article class="card-body">
       <form method="POST">
         {% csrf_token %}
@@ -42,6 +42,11 @@
             <div class="">
               <label class="mt-2 text-gray-500 font-bold text-md block">Due Date</label>
                 {{ form.due_date }}
+            </div> 
+
+            <div class="">
+              <label class="mt-2 text-gray-500 font-bold text-md block">Reminder</label>
+                {{ form.reminder }}
             </div> 
 
             <div class="">
