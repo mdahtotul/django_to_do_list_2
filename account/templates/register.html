@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Categories {% endblock title %}
+{% block title %} Task List - Register {% endblock title %}
 
 {% block section_title %} {% include 'includes/sec_title.html' with section_title=sec_title %} {% endblock %}
 
@@ -11,7 +11,7 @@
 	<div class="card mx-auto" style="max-width:520px; margin-top:40px;">
       <article class="card-body">
     {% include 'includes/alert_success.html' %}
-		<form action="{% url 'login' %}" method="POST">
+		<form action="{% url 'register' %}" method="POST">
       {% csrf_token %}
 
 				<div class="">

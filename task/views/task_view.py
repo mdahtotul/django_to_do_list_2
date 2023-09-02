@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from task.constants import TASK_COMPLETED
 from task.filters import TaskFilter
 
@@ -6,7 +7,7 @@ from task.forms import CreateTaskForm
 from task.models import Task
 
 
-
+@login_required
 def list_task(request):
   queryset = Task.objects.prefetch_related('category','assigned_to').all() # using eager load to avoid n+1 queries
 
@@ -23,6 +24,7 @@ def list_task(request):
   return render(request, 'list_task.html', context)
 
 
+@login_required
 def create_task(request):
   if request.method == 'POST':
     print(request.POST)
@@ -39,10 +41,10 @@ def create_task(request):
   return render(request, 'create_task.html', context)
   
 
+@login_required
 def edit_task(request, pk):
   task = Task.objects.get(pk=pk)
   if request.method == 'POST':
-    print(request.POST)
     form = CreateTaskForm(request.POST, instance=task)
     if form.is_valid():
       form.save()
@@ -56,6 +58,7 @@ def edit_task(request, pk):
   return render(request, 'create_task.html', context)
 
 
+@login_required
 def complete_task(request, pk):
   task = Task.objects.get(pk=pk)
   task.status = TASK_COMPLETED
@@ -63,6 +66,7 @@ def complete_task(request, pk):
   return redirect('tasks')
 
 
+@login_required
 def delete_task(request, pk):
   task = Task.objects.get(pk=pk)
   task.delete()

@@ -8,45 +8,44 @@ from account.forms import ProfileEditForm, RegisterForm
 
 def user_register(request):
     if request.user.is_authenticated:
-        return redirect('all_tasks')
-    
-    if request.method == 'POST':
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            new_user = form.save()
-            messages.info(request, 'Registration completed.')
+        return redirect('tasks')
+    else :
+        if request.method == 'POST':
+            print(request.POST)
+            form = RegisterForm(request.POST)
+            if form.is_valid():
+                new_user = form.save()
+                messages.info(request, 'Registration completed.')
 
-            new_user = authenticate(request, username=form.cleaned_data.get('username'), password=form.cleaned_data.get('password1'))
-            login(request, new_user)
-
-        else :
-            print(form.errors)
-            
-
-    else:
-        form = RegisterForm()
-    context = {
-        'form': form,
-        'sec_title': 'Register'
-    }
-    return render(request, 'register.html', context)
+                new_user = authenticate(request, username=form.cleaned_data.get('username'), password=form.cleaned_data.get('password1'))
+                login(request, new_user)
+                return redirect('tasks')
+            else :
+                print(form.errors)
+        else:
+            form = RegisterForm()
+        context = {
+            'form': form,
+            'sec_title': 'Register'
+        }
+        return render(request, 'register.html', context)
 
 
 def user_login(request):
     if request.user.is_authenticated:
-        print('authenticated')
-    
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-        else:
-            print('error')
-            messages.info(request, 'Invalid username or password.')
+        return redirect('tasks')
+    else :
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('tasks')
+            else:
+                messages.info(request, 'Invalid username or password.')
 
-    return render(request, 'login.html', {'sec_title': "Login"})
+        return render(request, 'login.html', {'sec_title': "Login"})
 
 
 @login_required
@@ -65,6 +64,7 @@ def edit_user_profile(request):
     return render(request, 'profile.html', {'form': user_form, 'sec_title': 'Profile'})
 
 
+@login_required
 def user_logout(request):
     logout(request)
     return redirect('login')
